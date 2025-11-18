@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { IoMdSearch } from 'react-icons/io';
-
-// import { FaCartShopping } from 'react-icons/fa6';
-import { FaShoppingBag } from 'react-icons/fa'; // Correct import here
+import { FaShoppingBag } from 'react-icons/fa';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
-
 import { ShoppingCart } from 'lucide-react';
 import { Usecart } from './Usecart';
 import '../index.css';
@@ -12,21 +9,23 @@ import '../index.css';
 const menuLinks = [
   { id: 1, name: 'Home', link: '/' },
   { id: 2, name: 'Products', link: '/products' },
-  { id: 3, name: 'Purchase', link: '/purchase' },
+  { id: 3, name: 'Faq', link: '/faq' },
   { id: 4, name: 'About', link: '/about' },
   { id: 5, name: 'Contact', link: '/contact' }
 ];
 
 export default function Header() {
-
-
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-   const { cartCount } = Usecart();
+  const [cartSidebarOpen, setCartSidebarOpen] = useState(false);
+
+  // Destructure all needed functions & state from Usecart
+  const { cartCount, cartItems, removeFromCart } = Usecart();
 
   return (
     <header className="bg-white shadow-md fixed top-0 left-0 w-full z-50">
+      {/* ===== Main Header ===== */}
       <div className="max-w-7xl mx-auto px-5 py-4 flex justify-between items-center">
-        {/* Logo with Icon */}
+        {/* Logo */}
         <a
           href="#"
           className="flex items-center text-blue-600 font-bold text-2xl tracking-wide uppercase space-x-2"
@@ -41,7 +40,7 @@ export default function Header() {
             <li key={item.id}>
               <a
                 href={item.link}
-                className="text-gray-600 dark:text-gray-300 hover:text-blue-600 transition font-medium"
+                className="text-gray-600 hover:text-blue-600 transition font-medium"
               >
                 {item.name}
               </a>
@@ -53,22 +52,27 @@ export default function Header() {
         <div className="flex items-center gap-4">
           {/* Hover Search */}
           <div className="relative group hidden sm:block">
-            <IoMdSearch className="text-xl text-gray-600  cursor-pointer" />
+            <IoMdSearch className="text-xl text-gray-600 cursor-pointer" />
             <input
               type="text"
               placeholder="Search..."
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 w-0 opacity-0 group-hover:w-64 group-hover:opacity-100 transition-all duration-300 bg-white  border border-gray-300  rounded-full px-4 py-1 text-sm focus:outline-none"
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 w-0 opacity-0 group-hover:w-64 group-hover:opacity-100 transition-all duration-300 bg-white border border-gray-300 rounded-full px-4 py-1 text-sm focus:outline-none"
             />
           </div>
 
-     {/* 🛒 Cart with count */}
-          <div className="relative">
+          {/* Cart Icon */}
+          <div
+            className="relative cursor-pointer"
+            onClick={() => setCartSidebarOpen(true)}
+          >
             <ShoppingCart className="text-gray-700" size={24} />
             {cartCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                 {cartCount}
               </span>
             )}
+            
+            
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -81,14 +85,14 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* ===== Mobile Menu ===== */}
       {mobileMenuOpen && (
-        <ul className="bg-white  px-5 py-4 lg:hidden shadow-md space-y-3">
+        <ul className="bg-white px-5 py-4 lg:hidden shadow-md space-y-3">
           {menuLinks.map((item) => (
             <li key={item.id}>
               <a
                 href={item.link}
-                className="block text-gray-600  hover:text-blue-600  transition font-medium"
+                className="block text-gray-600 hover:text-blue-600 transition font-medium"
               >
                 {item.name}
               </a>
@@ -96,9 +100,76 @@ export default function Header() {
           ))}
         </ul>
       )}
+
+      {/* ===== Cart Sidebar ===== */}
+      <div
+        className={`fixed top-0 right-0 h-full w-96 bg-white shadow-lg transform transition-transform duration-300 z-50 ${
+          cartSidebarOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        {/* Sidebar Header */}
+        <div className="flex justify-between items-center p-4 border-b">
+          <h2 className="text-xl font-bold">Shopping Cart</h2>
+          <button
+            onClick={() => setCartSidebarOpen(false)}
+            className="text-xl font-bold"
+          >
+            &times;
+          </button>
+        </div>
+
+        {/* Sidebar Content */}
+        <div className="p-4 flex flex-col gap-4 overflow-y-auto h-full">
+          {cartItems.length === 0 ? (
+            <p className="text-gray-500">Your cart is empty</p>
+          ) : (
+            cartItems.map((item) => (
+              <div
+                key={item.id}
+                className="flex gap-4 items-center border-b pb-2"
+              >
+                <img
+                  src={item.mainImage}
+                  alt={item.title}
+                  className="w-16 h-20 object-cover rounded"
+                />
+                <div className="flex-1">
+                  <h3 className="font-medium text-gray-800">{item.title}</h3>
+                  <p className="text-gray-500 text-sm">Size: {item.size || 'N/A'}</p>
+                  <p className="text-red-600 font-semibold">${item.discountedPrice}</p>
+                  <p className="text-gray-600 text-sm">Qty: {item.quantity}</p>
+                </div>
+                <button
+                  onClick={() => removeFromCart(item.id)}
+                  className="text-red-500 font-bold text-lg"
+                >
+                  &times;
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Sidebar Footer */}
+        {cartItems.length > 0 && (
+          <div className="p-4 border-t">
+            <p className="font-semibold text-gray-800">
+              Total: $
+              {cartItems.reduce(
+                (total, item) => total + item.discountedPrice * item.quantity,
+                0
+              )}
+            </p>
+            <button className="mt-4 w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition">
+              Checkout
+            </button>
+          </div>
+        )}
+      </div>
     </header>
   );
 }
+
 
 
 // import React, { useState } from 'react'

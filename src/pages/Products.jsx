@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import '../index.css';
-
+import productbanner from "../assets/productbanner.jpg";
 import { Link } from "react-router-dom";
 
 
@@ -109,22 +109,24 @@ filteredProducts = filteredProducts.filter((p) => p.id);
 
   // Inline CategoryFilter component
   const CategoryFilter = ({ categories, onSelect }) => (
-    <div className="flex flex-wrap gap-4">
-      {categories.map((cat) => (
-        <button
-          key={cat}
-          onClick={() => onSelect(cat)}
-          className={`px-4 py-2 rounded-full border ${
+  <div className="flex flex-wrap gap-4">
+    {categories.map((cat) => (
+      <button
+        key={cat}
+        onClick={() => onSelect(cat)}
+        className={`px-5 py-2 rounded-full border font-semibold transition-all duration-200
+          ${
             selectedCategory === cat
-              ? "bg-blue-600 text-white"
-              : "bg-purple-700 text-gray-800 border-gray-300"
-          } hover:bg-blue-500 hover:text-white transition`}
-        >
-          {cat}
-        </button>
-      ))}
-    </div>
-  );
+              ? "bg-blue-700 text-white border-blue-700 shadow"
+              : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-blue-600 hover:text-white hover:border-blue-600"
+          } focus:outline-none focus:ring-2 focus:ring-blue-500`}
+      >
+        {cat}
+      </button>
+    ))}
+  </div>
+);
+
 
   // Inline ProductCard component
   const ProductCard = ({ product }) => (
@@ -155,23 +157,26 @@ filteredProducts = filteredProducts.filter((p) => p.id);
           <Header />
           <div className="bg-gray-50 min-h-screen">
       {/* Banner */}
-      <div className="relative h-64 bg-cover bg-center"
-      style={{     backgroundImage:
-    "url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=80')",
-}}>
-
    
-       <div className="inset-0 absolute bg-black flex items-center justify-center">
-        <h1 className="text-white text-5xl font-">Shop Collection</h1>
-       </div>
-      </div>
+          <div
+              className="relative h-96 top-14"
+              style={{
+              
+                  backgroundImage: `url(${productbanner})`,
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat"
+          
+         
+              }}
+            >
 
-
+            </div>
    
 
       {/* Content */}
       <div className="container mx-auto px-6 py-10">
-        <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-6 gap-4">
+        <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center my-6 gap-4">
           <CategoryFilter categories={categories} onSelect={setSelectedCategory} />
 
           <div>
@@ -189,46 +194,103 @@ filteredProducts = filteredProducts.filter((p) => p.id);
         </div>
 
         {/* Product Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+  {filteredProducts.map((product) => (
+    <div
+      key={product.id}
+      className="
+        group relative rounded-2xl overflow-hidden shadow-md bg-white 
+        transition-all duration-500 
+        hover:shadow-2xl hover:-translate-y-2 
+        border border-gray-200 hover:border-teal-600
+      "
+    >
+
+      {/* SOFT ORNAMENT BACKDROP */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-teal-50 opacity-70 group-hover:opacity-90 transition"></div>
+
+      {/* PRODUCT IMAGE */}
+      <Link to={`/products/${product.id}`}>
+        <img
+          src={product.image}
+          alt={product.title}
+          className="
+            relative z-10 w-full h-72 object-cover 
+            transition-all duration-500 
+            group-hover:scale-110 group-hover:brightness-105
+          "
+        />
+      </Link>
+
+      {/* CONTENT */}
+      <div className="relative z-20 p-5 text-center">
+
+        {/* Category */}
+        <span
+          className="
+            inline-block mb-3 px-4 py-1 text-sm 
+            rounded-full bg-sage-200 text-slate-700 
+            transition-all duration-300 
+            group-hover:bg-teal-200 group-hover:text-teal-900
+          "
+        >
+          {product.category}
+        </span>
+
+        {/* Title */}
+        <Link
+          to={`/products/${product.id}`}
+          className="
+            block text-lg font-semibold text-slate-800 
+            group-hover:text-teal-700 transition
+          "
+        >
+          {product.title}
+        </Link>
+
+        {/* EXTRA DESCRIPTION */}
+        <p className="mt-1 text-sm text-gray-500 leading-relaxed">
+          Premium quality · Sustainable material · Limited edition release
+        </p>
+
+        {/* PRICE SECTION */}
+        <div className="flex items-center justify-center gap-3 mt-3">
+
+          <span className="text-gray-400 line-through text-sm">
+            ${product.originalPrice}
+          </span>
+
+          <span
+            className="
+              text-lg font-bold 
+              text-yellow-600 group-hover:text-yellow-700 transition
+            "
+          >
+            ${product.discountedPrice}
+          </span>
+        </div>
+
+        {/* VIEW DETAILS CTA */}
+        <Link
+          to={`/products/${product.id}`}
+          className="
+            block mt-5 py-2.5 px-6 rounded-xl font-semibold 
+            bg-teal-600 text-white 
+            transition-all duration-400
+            hover:bg-teal-700 hover:shadow-lg hover:shadow-teal-200 
+            hover:-translate-y-1
+          "
+        >
+          View Details
+        </Link>
+      </div>
+    </div>
+  ))}
+</div>
+
        
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {filteredProducts.map((product) => (
-          <div
-            key={product.id}
-            className="border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300"
-          >
-            <Link to={`/products/${product.id}`}>
-              <img
-                src={product.image}
-                alt={product.title}
-                className="w-full h-72 object-cover"
-              />
-            </Link>
-            <div className="p-4 text-center">
-              <Link
-                to={`/products/${product.id}`}
-                className="text-lg font-medium text-gray-800 hover:text-red-600 transition"
-              >
-                {product.title}
-              </Link>
-              <div className="flex items-center justify-center gap-3 mt-2">
-                <span className="text-gray-400 line-through text-sm">
-                  ${product.originalPrice}
-                </span>
-                <span className="text-red-600 font-semibold text-lg">
-                  ${product.discountedPrice}
-                </span>
-              </div>
-              <Link
-                to={`/products/${product.id}`}
-                className="block mt-4 bg-red-600 text-white py-2 px-6 rounded-md font-semibold hover:bg-red-700 transition"
-              >
-                View Details
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
+        
       </div>
     </div>
        {/* Footer Component */}

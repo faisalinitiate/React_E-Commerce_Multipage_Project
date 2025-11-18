@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
-import about from "../assets/about.jpg";
+import slidertwo from "../assets/slidertwo.jpg";
 import { Trophy, Award, Globe, Users, Star } from "lucide-react";
 import "../index.css";
 
@@ -13,18 +13,24 @@ export default function About() {
 
       <div className="bg-gray-50 min-h-screen">
         {/* Banner */}
-        <div
-          className="relative h-96 bg-cover bg-center"
-          style={{
-            backgroundImage: `url(${about})`,
-                
-          }}
-        >
+         <div
+              className="relative h-96 top-14"
+              style={{
+              
+                  backgroundImage: `url(${slidertwo})`,
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat"
+          
+         
+              }}
+            >
+       
         
         </div>
 
         {/* Our Story */}
-        <div className="container mx-auto px-6 py-12 grid md:grid-cols-2 gap-12 items-center">
+        <div className="container mx-auto px-6 py-24 grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl font-bold mb-4">Our Story</h2>
             <p className="text-gray-700 mb-6 leading-relaxed">

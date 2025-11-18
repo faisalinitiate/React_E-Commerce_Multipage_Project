@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Mail, Phone, MapPin, Send, Star, Users } from "lucide-react";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
-import contact from "../assets/contact.jpg";
+// import contact from "../assets/contact.jpg";
+import sliderthree from "../assets/sliderthree.jpg";
 import "../index.css";
 
 export default function Contact() {
@@ -44,10 +45,13 @@ export default function Contact() {
 
       {/* Banner */}
       <div
-        className="relative h-96 bg-cover bg-center"
+        className="relative h-96 top-14"
         style={{
         
-            backgroundImage: `url(${contact})`,
+            backgroundImage: `url(${sliderthree})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat"
     
    
         }}

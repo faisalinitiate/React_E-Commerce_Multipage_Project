@@ -31,6 +31,8 @@ export default function ProductDetails() {
         "https://placehold.co/100x150?text=Hoodie+1",
         "https://placehold.co/100x150?text=Hoodie+2",
         "https://placehold.co/100x150?text=Hoodie+3",
+        "https://placehold.co/100x150?text=Hoodie+4",
+        "https://placehold.co/100x150?text=Hoodie+5",
       ],
       mainImage: "https://placehold.co/600x800?text=Urban+Hoodie",
       bottomBanner: "https://placehold.co/1200x400?text=Urban+Hoodie+Banner",
@@ -76,6 +78,10 @@ export default function ProductDetails() {
       images: [
         "https://placehold.co/100x150?text=Tee+1",
         "https://placehold.co/100x150?text=Tee+2",
+        "https://placehold.co/100x150?text=Tee+1",
+        "https://placehold.co/100x150?text=Tee+2",
+        "https://placehold.co/100x150?text=Tee+1",
+        
       ],
       mainImage: "https://placehold.co/600x800?text=Summer+Tee",
       bottomBanner: "https://placehold.co/1200x400?text=Summer+Tee+Banner",
@@ -112,6 +118,10 @@ export default function ProductDetails() {
       images: [
         "https://placehold.co/100x150?text=Jacket+1",
         "https://placehold.co/100x150?text=Jacket+2",
+        "https://placehold.co/100x150?text=Jacket+1",
+        "https://placehold.co/100x150?text=Jacket+2",
+        "https://placehold.co/100x150?text=Jacket+1",
+     
       ],
       mainImage: "https://placehold.co/600x800?text=Denim+Jacket",
       bottomBanner: "https://placehold.co/1200x400?text=Denim+Jacket+Banner",
@@ -146,6 +156,9 @@ export default function ProductDetails() {
       images: [
         "https://placehold.co/100x150?text=Sneakers+1",
         "https://placehold.co/100x150?text=Sneakers+2",
+        "https://placehold.co/100x150?text=Sneakers+1",
+        "https://placehold.co/100x150?text=Sneakers+2",
+        "https://placehold.co/100x150?text=Sneakers+1",
       ],
       mainImage: "https://placehold.co/600x800?text=Street+Sneakers",
       bottomBanner: "https://placehold.co/1200x400?text=Sneakers+Banner",
@@ -276,12 +289,13 @@ export default function ProductDetails() {
           </div>
 
    {/* ✅ Add to Cart Button */}
-          <button
-            onClick={addToCart}
-            className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition"
-          >
-            Add to Cart
-          </button>
+     <button
+  onClick={() => addToCart({ ...product, size: selectedSize })}
+  className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition"
+>
+  Add to Cart
+</button>
+
 
           <div className="pt-4 border-t border-gray-200 text-sm text-gray-600">
             <p>

@@ -295,67 +295,71 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
-import slidertwo from "../assets/slidertwo.jpg";
-import sliderthree from "../assets/sliderthree.jpg";
+import  heroimgone from "../assets/heroimgone.jpg";
+import heroimgtwo from "../assets/heroimgtwo.jpg";
+import heroimgthree from "../assets/heroimgthree.jpg";
 import featureproduct from "../assets/featureproduct.jpg";
+import { Star } from "lucide-react";
 import { FaClock, FaShippingFast, FaHeadset, FaTag } from "react-icons/fa";
 import "../index.css";
 
 const Heroslider = [
   {
     id: 1,
-    Image: slidertwo,
+    Image:  heroimgone,
     Text1: "Luxury Lifestyle Essentials",
     Text2: "Discover premium products crafted with precision and passion.",
   },
   {
     id: 2,
-    Image: sliderthree,
+    Image: heroimgtwo ,
     Text1: "Redefine Everyday Elegance",
     Text2: "From classic wear to tech accessories — elevate your style.",
   },
   {
     id: 3,
-    Image: slidertwo,
+    Image: heroimgthree,
     Text1: "Experience the Future of Comfort",
     Text2: "Where innovation meets craftsmanship and timeless design.",
   },
 ];
 
+
 const products = [
-  {
-    id: 1,
-    name: "AuroraPulse Wireless Headphones",
-    price: "$59.99",
-    rating: 4.8,
-    description: "Immersive sound quality with comfort for all-day listening.",
-    Image: featureproduct,
-  },
-  {
-    id: 2,
-    name: "VelvetStorm Men's Leather Jacket",
-    price: "$89.99",
-    rating: 4.6,
-    description: "Premium crafted leather offering timeless style and warmth.",
-    Image: featureproduct,
-  },
-  {
-    id: 3,
-    name: "ChronoEdge Smart Watch X1",
-    price: "$129.99",
-    rating: 4.9,
-    description: "Track your fitness, health, and lifestyle with smart precision.",
-    Image: featureproduct,
-  },
-  {
-    id: 4,
-    name: "LuxeCrest Signature Handbag",
-    price: "$79.99",
-    rating: 4.7,
-    description: "Elegant handcrafted leather with modern design sophistication.",
-    Image: featureproduct,
-  },
-];
+    {
+      id: 1,
+      name: "Wireless Headphones",
+      image: featureproduct,
+      rating: 5,
+      reviewCount: 130,
+      price: 120,
+      oldPrice: 200,
+      badge: "New",
+      badgeColor: "bg-green-500",
+    },
+    {
+      id: 2,
+      name: "Blue Bag with Lock",
+      image: "/images/bag.png",
+      rating: 5,
+      reviewCount: 120,
+      price: 160,
+      oldPrice: 190,
+      badge: "Sale",
+      badgeColor: "bg-yellow-400 text-gray-900",
+    },
+    {
+      id: 3,
+      name: "Stylish Pink Top",
+      image: "/images/top.png",
+      rating: 5,
+      reviewCount: 150,
+      price: 150,
+      oldPrice: 200,
+      badge: "New",
+      badgeColor: "bg-green-500",
+    },
+  ];
 
 const deals = [
   {
@@ -464,90 +468,145 @@ export default function Home() {
       <HeroSlider slides={Heroslider} />
 
       {/* ===== FEATURED PRODUCTS (Exclusive Design) ===== */}
-<section className="relative py-24 bg-gradient-to-b from-amber-50 via-white to-gray-50 overflow-hidden">
-  {/* Background Accent Circles */}
-  <div className="absolute -top-32 -right-32 w-96 h-96 bg-amber-100 rounded-full blur-3xl opacity-40"></div>
-  <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-yellow-200 rounded-full blur-3xl opacity-40"></div>
 
-  <div className="container mx-auto px-6 relative z-10">
-    {/* Heading */}
-    <div className="text-center mb-16">
-      <h2 className="text-5xl font-extrabold text-gray-900 mb-3 tracking-tight drop-shadow-sm">
-         Featured Products
-      </h2>
-      <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-        Discover our most loved and top-rated picks — handpicked for you.
-      </p>
-    </div>
+<section className="py-16 bg-gray-50">
+  <div className="container mx-auto px-6">
+    <h2 className="text-3xl font-bold text-gray-800 mb-12 text-center">
+      Featured Products
+    </h2>
 
-    {/* Product Grid */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-      {products.map((item) => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+      {products.map((product) => (
         <div
-          key={item.id}
-          className="group relative bg-white/80 backdrop-blur-md border border-amber-100 shadow-lg rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-700 hover:-translate-y-3"
+          key={product.id}
+          className="
+            group
+            [perspective:1200px]
+            w-full h-[420px]
+            hover:scale-[1.03]
+            transition-transform duration-500
+          "
         >
-          {/* Image Section */}
-          <div className="overflow-hidden relative">
-            <img
-              src={item.Image}
-              alt={item.name}
-              className="w-full h-64 object-cover transform transition-transform duration-700 group-hover:scale-110"
-            />
-            {/* Gradient Overlay on Hover */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-          </div>
-
-          {/* Content */}
-          <div className="p-6">
-            <h3 className="text-2xl font-bold text-gray-900 group-hover:text-amber-700 transition-colors duration-300">
-              {item.name}
-            </h3>
-
-            {/* Rating */}
-            <div className="flex items-center mt-2">
-              {[...Array(5)].map((_, i) => (
-                <span
-                  key={i}
-                  className={`text-yellow-500 ${
-                    i < Math.round(item.rating) ? "opacity-100" : "opacity-30"
-                  }`}
+          {/* Flip Container */}
+          <div
+            className="
+              relative w-full h-full
+              transition-transform duration-[900ms]
+              [transform-style:preserve-3d]
+              group-hover:[transform:rotateY(180deg)]
+            "
+          >
+            {/* FRONT SIDE */}
+            <div
+              className="
+                absolute inset-0
+                bg-gray-100
+                shadow-lg
+                rounded-2xl
+                border border-gray-300
+                overflow-hidden
+                p-6
+                flex flex-col justify-between items-center
+                [backface-visibility:hidden]
+                transition-all duration-500
+                group-hover:shadow-xl
+              "
+            >
+              {product.badge && (
+                <div
+                  className={`text-white text-xs font-semibold px-3 py-1 rounded-md mb-3 animate-pulse ${product.badgeColor}`}
                 >
-                  ★
+                  {product.badge}
+                </div>
+              )}
+
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-44 h-44 object-contain mb-4 transition-transform duration-700 group-hover:scale-110 group-hover:-translate-y-2"
+                loading="lazy"
+              />
+
+              <h3 className="text-lg font-semibold text-gray-900 mb-2 text-center">
+                {product.name}
+              </h3>
+
+              <div className="flex items-center justify-center gap-1 mb-2">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    size={18}
+                    className={`transition ${
+                      i < product.rating
+                        ? "text-yellow-400 fill-yellow-400 group-hover:scale-125"
+                        : "text-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <span className="text-blue-700 font-bold text-lg tracking-wide">
+                  ${product.price.toFixed(2)}
                 </span>
-              ))}
-              <span className="ml-2 text-sm text-gray-600 font-medium">
-                {item.rating.toFixed(1)}
-              </span>
+                {product.oldPrice && (
+                  <span className="text-gray-400 line-through text-sm">
+                    ${product.oldPrice.toFixed(2)}
+                  </span>
+                )}
+              </div>
+
+              <button
+                className="
+                  px-6 py-2
+                  bg-slate-700 text-white
+                  border border-slate-700
+                  rounded-lg
+                  font-medium
+                  transition-all duration-300
+                  hover:bg-white hover:border-black hover:text-black
+                  shadow-sm hover:shadow-md
+                "
+              >
+                Shop Now
+              </button>
             </div>
 
-            {/* Divider */}
-            <div className="w-14 h-[3px] bg-amber-600 rounded-full my-3"></div>
+            {/* BACK SIDE */}
+            <div
+              className="
+                absolute inset-0
+                rounded-2xl
+                rotate-y-180
+                [backface-visibility:hidden]
+                p-6
+                flex flex-col items-center justify-center
+                text-center
+                bg-gradient-to-br from-green-50 via-green-100 to-yellow-50
+                text-gray-900
+                shadow-xl
+              "
+            >
+              {/* Glow Circle */}
+              <div className="absolute w-36 h-36 rounded-full bg-yellow-200/20 blur-2xl top-10"></div>
 
-            {/* Description */}
-            <p className="text-gray-600 text-sm leading-relaxed min-h-[60px]">
-              {item.description}
-            </p>
+              <h3 className="text-xl font-semibold mb-4 tracking-wide">{product.name}</h3>
 
-            {/* Price & Button */}
-            <div className="mt-5 flex items-center justify-between">
-              <p className="text-2xl font-bold text-amber-700">
-                ${item.price}
+              <p className="text-gray-700 mb-6 text-sm px-4 leading-relaxed">
+                {product.description || "Premium quality product designed for style, comfort, and freshness."}
               </p>
-              <a
-                href="#"
-                className="px-4 py-2 text-sm font-semibold rounded-full border border-amber-600 text-amber-700 hover:bg-amber-600 hover:text-white transition-all duration-300"
-              >
-                View Details
-              </a>
+
+              <div className="flex gap-4">
+                <button className="bg-green-600 px-6 py-2 rounded-lg text-white font-medium shadow hover:shadow-lg transition-transform duration-300 hover:scale-105">
+                  Add to Cart
+                </button>
+
+                <button className="border border-green-400 text-green-700 px-6 py-2 rounded-lg hover:bg-green-200/20 transition-all hover:scale-105">
+                  View Details
+                </button>
+              </div>
             </div>
           </div>
-
-          {/* Glow Effect */}
-          <div className="absolute inset-0 rounded-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-br from-amber-100/60 via-transparent to-white blur-2xl"></div>
-
-          {/* Floating Shadow Accent */}
-          <div className="absolute inset-x-0 bottom-0 h-1.5 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 rounded-b-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         </div>
       ))}
     </div>
