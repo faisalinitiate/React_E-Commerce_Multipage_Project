@@ -298,7 +298,10 @@ import Footer from "../common/Footer";
 import  heroimgone from "../assets/heroimgone.jpg";
 import heroimgtwo from "../assets/heroimgtwo.jpg";
 import heroimgthree from "../assets/heroimgthree.jpg";
-import featureproduct from "../assets/featureproduct.jpg";
+import headphones from "../assets/headphones.jpg";
+import bluebag from "../assets/bluebag.jpg";
+import casualJeans from "../assets/casualJeans.jpg";
+import pinktop from "../assets/pinktop.jpg";
 import { Star } from "lucide-react";
 import { FaClock, FaShippingFast, FaHeadset, FaTag } from "react-icons/fa";
 import "../index.css";
@@ -329,7 +332,7 @@ const products = [
     {
       id: 1,
       name: "Wireless Headphones",
-      image: featureproduct,
+      image: headphones,
       rating: 5,
       reviewCount: 130,
       price: 120,
@@ -340,7 +343,7 @@ const products = [
     {
       id: 2,
       name: "Blue Bag with Lock",
-      image: "/images/bag.png",
+      image: bluebag ,
       rating: 5,
       reviewCount: 120,
       price: 160,
@@ -351,7 +354,7 @@ const products = [
     {
       id: 3,
       name: "Stylish Pink Top",
-      image: "/images/top.png",
+      image: pinktop,
       rating: 5,
       reviewCount: 150,
       price: 150,
@@ -365,7 +368,7 @@ const deals = [
   {
     id: 1,
     name: "Casual Wear",
-    image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f",
+    image: casualJeans,
     rating: 4.8,
     description: "Soft, breathable fabric for everyday casual comfort.",
   },
@@ -633,17 +636,17 @@ export default function Home() {
             {deals.map((item, index) => (
               <div
                 key={item.id}
-                className={`relative group rounded-2xl py-3 m-2 shadow-lg transition-all duration-500 ${
+                className={`relative group rounded-2xl py-3 m-2 shadow-lg transition-all  duration-500 ${
                   index === 0
                     ? " text-white hover:bg-gray-900 bg-slate-800 hover:text-white"
                     : " hover:bg-gray-900 bg-slate-800 hover:shadow-2xl text-white"
                 }`}
               >
-                <div className="flex justify-center mb-5">
+                <div className="flex justify-center mb-5 ">
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-40 h-40 relative -top-12 4 object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
+                    className="w-40 h-40 relative -top-12 4 object-cover rounded-xl transition-transform duration-500 group-hover:scale-105 border-2 border-black"
                   />
                 </div>
 
